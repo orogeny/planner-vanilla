@@ -12,22 +12,12 @@ function setup() {
 
   trackManager = new TrackManager(TRACK_CATALOG);
 
-  drawStraight();
+  draw();
 }
 
-function drawStraight() {
-  const tt8002 = trackManager.add("1");
-
-  if (tt8002 !== undefined) {
-    tt8002.setPosition(216, 50);
-    tt8002.render(ctx);
-  }
-
-  const tt8039 = trackManager.add("2");
-
-  if (tt8039 !== undefined) {
-    tt8039.setPosition(50, 100);
-    tt8039.render(ctx);
+function draw() {
+  for (const track of trackManager.tracks) {
+    track.render(ctx);
   }
 }
 
@@ -61,7 +51,11 @@ function setupDragHandlers() {
     if (dropped) {
       const [kind, id] = dropped.split("#");
 
-      console.log(`dropped kind: ${kind} id: ${id}`);
+      console.log(`dropped ${kind} id: ${id} @ (${ev.offsetX}, ${ev.offsetY})`);
+
+      trackManager.add(id, { x: ev.offsetX, y: ev.offsetY });
+
+      draw();
     }
   };
 }
