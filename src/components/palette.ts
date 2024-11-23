@@ -17,8 +17,6 @@ function handleDragStart(ev: DragEvent) {
 
   if (trackId) {
     ev.dataTransfer!.setData("text/plain", `track#${trackId}`);
-
-    console.log(`dragging track: ${trackId}`);
   }
 }
 

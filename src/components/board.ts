@@ -49,9 +49,7 @@ function setupDragHandlers() {
     const dropped = ev.dataTransfer?.getData("text/plain");
 
     if (dropped) {
-      const [kind, id] = dropped.split("#");
-
-      console.log(`dropped ${kind} id: ${id} @ (${ev.offsetX}, ${ev.offsetY})`);
+      const [_, id] = dropped.split("#");
 
       trackManager.add(id, { x: ev.offsetX, y: ev.offsetY });
 

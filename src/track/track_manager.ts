@@ -13,18 +13,13 @@ class TrackManager {
     const spec = this.catalog.find((p) => p.id === productId);
 
     if (spec === undefined) {
-      console.log(`unknown track product id: "${productId}"`);
       return;
     }
 
-    console.log(`adding ${productId} @ (${coords.x}, ${coords.y})`);
-
     const track = new Straight(spec);
-    track.setPosition(coords);
-
-    console.log(
-      `added ${track.trackId}:${track.catno} @ (${track.x}, ${track.y})`,
-    );
+    const offset = track.getDropOffset();
+    const position = { x: coords.x - offset.x, y: coords.y - offset.y };
+    track.setPosition(position);
 
     this.tracks.push(track);
   }

@@ -1,6 +1,5 @@
 import { Coords } from "../lib/coords";
-
-const SLEEPER_LENGTH = 22;
+import { SLEEPER_LENGTH } from "../constants";
 
 type StraightSpec = {
   id: string;
@@ -22,6 +21,13 @@ class Straight {
     this.catno = spec.catno;
     this.label = spec.label;
     this.length = spec.length;
+  }
+
+  getDropOffset() {
+    return {
+      x: this.length / 2,
+      y: SLEEPER_LENGTH / 2,
+    } as Coords;
   }
 
   setPosition(coords: Coords) {

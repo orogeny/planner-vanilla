@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+import { SLEEPER_LENGTH } from "../constants";
 import { Straight, StraightSpec } from "./straight";
 
 const spec: StraightSpec = {
@@ -31,5 +32,14 @@ describe("Straight", () => {
 
     expect(straight.x).toBe(100);
     expect(straight.y).toBe(200);
+  });
+
+  test("should have offset in centre", () => {
+    const straight = new Straight(spec);
+
+    const offset = straight.getDropOffset();
+
+    expect(offset.x).toBe(spec.length / 2);
+    expect(offset.y).toBe(SLEEPER_LENGTH / 2);
   });
 });

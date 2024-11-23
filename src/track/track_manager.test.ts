@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, test } from "vitest";
 import { StraightSpec } from "./straight";
 import { TrackManager } from "./track_manager";
 import { Coords } from "../lib/coords";
+import { SLEEPER_LENGTH } from "../constants";
 
 const catalog: StraightSpec[] = [
   {
@@ -68,12 +69,14 @@ describe("add new track", () => {
     expect(manager.tracks[0].catno).toBe("TT8039");
   });
 
-  test("should contain track positioned at (150, 250)", () => {
+  test("should contain track positioned offset from (150, 250)", () => {
+    const expectedX = 150 - 166 / 2;
+    const expectedY = 250 - SLEEPER_LENGTH / 2;
     manager.add("1", { x: 150, y: 250 });
 
     const track = manager.tracks[0];
 
-    expect(track.x).toBe(150);
-    expect(track.y).toBe(250);
+    expect(track.x).toBe(expectedX);
+    expect(track.y).toBe(expectedY);
   });
 });
