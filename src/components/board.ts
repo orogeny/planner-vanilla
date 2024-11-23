@@ -1,39 +1,34 @@
-import { Straight, StraightSpec } from "../track/straight";
+import { TRACK_CATALOG } from "../constants";
+import { TrackManager } from "../track/track_manager";
 
 let canvas: HTMLCanvasElement;
 let ctx: CanvasRenderingContext2D;
+
+let trackManager: TrackManager;
 
 function setup() {
   setupCanvas();
   setupDragHandlers();
 
+  trackManager = new TrackManager(TRACK_CATALOG);
+
   drawStraight();
 }
 
 function drawStraight() {
-  const specs: StraightSpec[] = [
-    {
-      id: "1",
-      catno: "TT8002",
-      label: "166mm",
-      length: 166,
-    },
-    {
-      id: "2",
-      catno: "TT8039",
-      label: "332mm",
-      length: 332,
-    },
-  ];
+  const tt8002 = trackManager.add("1");
 
-  const tt8002 = new Straight(specs[0]);
-  tt8002.setPosition(216, 50);
+  if (tt8002 !== undefined) {
+    tt8002.setPosition(216, 50);
+    tt8002.render(ctx);
+  }
 
-  const tt8039 = new Straight(specs[1]);
-  tt8039.setPosition(50, 100);
+  const tt8039 = trackManager.add("2");
 
-  tt8002.render(ctx);
-  tt8039.render(ctx);
+  if (tt8039 !== undefined) {
+    tt8039.setPosition(50, 100);
+    tt8039.render(ctx);
+  }
 }
 
 // Canvas Setup
