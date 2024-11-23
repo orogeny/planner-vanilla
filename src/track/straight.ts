@@ -13,6 +13,7 @@ class Straight {
   catno: string;
   label: string;
   length: number;
+  width = SLEEPER_LENGTH;
   x = 0;
   y = 0;
 
@@ -26,7 +27,7 @@ class Straight {
   getDropOffset() {
     return {
       x: this.length / 2,
-      y: SLEEPER_LENGTH / 2,
+      y: this.width / 2,
     } as Coords;
   }
 
@@ -35,10 +36,24 @@ class Straight {
     this.y = coords.y;
   }
 
+  encompasses(coords: Coords) {
+    const { x, y } = coords;
+
+    if (
+      x < this.x ||
+      y < this.y ||
+      x > this.x + this.length ||
+      y > this.y + this.width
+    ) {
+      return false;
+    }
+    return true;
+  }
+
   render(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.fillStyle = "#0000ff";
-    ctx.rect(this.x, this.y, this.length, SLEEPER_LENGTH);
+    ctx.rect(this.x, this.y, this.length, this.width);
     ctx.fill();
 
     ctx.fillStyle = "#ffffff";
@@ -48,7 +63,7 @@ class Straight {
     ctx.fillText(
       this.catno,
       this.x + this.length / 2,
-      this.y + SLEEPER_LENGTH / 2,
+      this.y + this.width / 2,
       this.length,
     );
   }
