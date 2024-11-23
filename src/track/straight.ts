@@ -1,30 +1,32 @@
 const SLEEPER_LENGTH = 22;
 
-class Straight {
+type StraightSpec = {
+  id: string;
   catno: string;
+  label: string;
   length: number;
+};
 
-  constructor(catno: string, length: number) {
-    this.catno = catno;
-    this.length = length;
+class Straight {
+  spec: StraightSpec;
+
+  constructor(spec: StraightSpec) {
+    this.spec = spec;
   }
 
   render(ctx: CanvasRenderingContext2D) {
+    const { catno, length } = this.spec;
+
     ctx.fillStyle = "#0000ff";
-    ctx.rect(100, 100, this.length, SLEEPER_LENGTH);
+    ctx.rect(100, 100, length, SLEEPER_LENGTH);
     ctx.fill();
 
     ctx.fillStyle = "#ffffff";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.font = "18px arial";
-    ctx.fillText(
-      this.catno,
-      100 + this.length / 2,
-      100 + SLEEPER_LENGTH / 2,
-      this.length,
-    );
+    ctx.fillText(catno, 100 + length / 2, 100 + SLEEPER_LENGTH / 2, length);
   }
 }
 
-export { Straight };
+export { Straight, type StraightSpec };

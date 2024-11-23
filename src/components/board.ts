@@ -1,4 +1,4 @@
-import { Straight } from "../track/straight";
+import { Straight, StraightSpec } from "../track/straight";
 
 let canvas: HTMLCanvasElement;
 let ctx: CanvasRenderingContext2D;
@@ -11,7 +11,14 @@ function setup() {
 }
 
 function drawStraight() {
-  const straight = new Straight("ZTT001", 166);
+  const spec: StraightSpec = {
+    id: "1",
+    catno: "TT8002",
+    label: "166mm",
+    length: 166,
+  };
+
+  const straight = new Straight(spec);
 
   straight.render(ctx);
 }
