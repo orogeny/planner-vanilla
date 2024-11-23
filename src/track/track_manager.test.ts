@@ -68,12 +68,6 @@ describe("add new track", () => {
     expect(manager.tracks[0].catno).toBe("TT8039");
   });
 
-  test("should return a piece of track", () => {
-    const track = manager.add("1", position);
-
-    expect(track?.catno).toBe("TT8002");
-  });
-
   test("should contain track positioned at (150, 250)", () => {
     manager.add("1", { x: 150, y: 250 });
 

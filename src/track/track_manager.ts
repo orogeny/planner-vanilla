@@ -17,12 +17,16 @@ class TrackManager {
       return;
     }
 
+    console.log(`adding ${productId} @ (${coords.x}, ${coords.y})`);
+
     const track = new Straight(spec);
     track.setPosition(coords);
 
-    this.tracks.push(track);
+    console.log(
+      `added ${track.trackId}:${track.catno} @ (${track.x}, ${track.y})`,
+    );
 
-    return track;
+    this.tracks.push(track);
   }
 }
 
