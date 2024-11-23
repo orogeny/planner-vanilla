@@ -1,5 +1,7 @@
 import { StraightSpec } from "./track/straight";
 
+const SLEEPER_LENGTH = 22;
+
 const TRACK_CATALOG: StraightSpec[] = [
   {
     id: "1",
@@ -15,4 +17,4 @@ const TRACK_CATALOG: StraightSpec[] = [
   },
 ];
 
-export { TRACK_CATALOG };
+export { SLEEPER_LENGTH, TRACK_CATALOG };

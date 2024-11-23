@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+import { SLEEPER_LENGTH } from "../constants";
 import { Straight, StraightSpec } from "./straight";
 
 const spec: StraightSpec = {
@@ -13,8 +14,8 @@ describe("Straight", () => {
     const straight = new Straight(spec);
 
     expect(straight).not.toBeUndefined();
-    expect(straight.spec.catno).toBe("TT8002");
-    expect(straight.spec.length).toBe(166);
+    expect(straight.catno).toBe("TT8002");
+    expect(straight.length).toBe(166);
   });
 
   test("should have default position", () => {
@@ -27,9 +28,18 @@ describe("Straight", () => {
   test("should have given position", () => {
     const straight = new Straight(spec);
 
-    straight.setPosition(100, 200);
+    straight.setPosition({ x: 100, y: 200 });
 
     expect(straight.x).toBe(100);
     expect(straight.y).toBe(200);
+  });
+
+  test("should have offset in centre", () => {
+    const straight = new Straight(spec);
+
+    const offset = straight.getDropOffset();
+
+    expect(offset.x).toBe(spec.length / 2);
+    expect(offset.y).toBe(SLEEPER_LENGTH / 2);
   });
 });
