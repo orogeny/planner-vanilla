@@ -9,23 +9,36 @@ type StraightSpec = {
 
 class Straight {
   spec: StraightSpec;
+  x = 0;
+  y = 0;
 
   constructor(spec: StraightSpec) {
     this.spec = spec;
   }
 
+  setPosition(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
+
   render(ctx: CanvasRenderingContext2D) {
     const { catno, length } = this.spec;
 
+    ctx.beginPath();
     ctx.fillStyle = "#0000ff";
-    ctx.rect(100, 100, length, SLEEPER_LENGTH);
+    ctx.rect(this.x, this.y, length, SLEEPER_LENGTH);
     ctx.fill();
 
     ctx.fillStyle = "#ffffff";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.font = "18px arial";
-    ctx.fillText(catno, 100 + length / 2, 100 + SLEEPER_LENGTH / 2, length);
+    ctx.fillText(
+      catno,
+      this.x + length / 2,
+      this.y + SLEEPER_LENGTH / 2,
+      length,
+    );
   }
 }
 

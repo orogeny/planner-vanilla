@@ -16,4 +16,20 @@ describe("Straight", () => {
     expect(straight.spec.catno).toBe("TT8002");
     expect(straight.spec.length).toBe(166);
   });
+
+  test("should have default position", () => {
+    const straight = new Straight(spec);
+
+    expect(straight.x).toBe(0);
+    expect(straight.y).toBe(0);
+  });
+
+  test("should have given position", () => {
+    const straight = new Straight(spec);
+
+    straight.setPosition(100, 200);
+
+    expect(straight.x).toBe(100);
+    expect(straight.y).toBe(200);
+  });
 });
