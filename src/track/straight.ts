@@ -10,12 +10,18 @@ type StraightSpec = {
 };
 
 class Straight {
-  spec: StraightSpec;
+  trackId: string;
+  catno: string;
+  label: string;
+  length: number;
   x = 0;
   y = 0;
 
   constructor(spec: StraightSpec) {
-    this.spec = spec;
+    this.trackId = spec.id;
+    this.catno = spec.catno;
+    this.label = spec.label;
+    this.length = spec.length;
   }
 
   setPosition(coords: Coords) {
@@ -24,11 +30,9 @@ class Straight {
   }
 
   render(ctx: CanvasRenderingContext2D) {
-    const { catno, length } = this.spec;
-
     ctx.beginPath();
     ctx.fillStyle = "#0000ff";
-    ctx.rect(this.x, this.y, length, SLEEPER_LENGTH);
+    ctx.rect(this.x, this.y, this.length, SLEEPER_LENGTH);
     ctx.fill();
 
     ctx.fillStyle = "#ffffff";
@@ -36,10 +40,10 @@ class Straight {
     ctx.textBaseline = "middle";
     ctx.font = "18px arial";
     ctx.fillText(
-      catno,
-      this.x + length / 2,
+      this.catno,
+      this.x + this.length / 2,
       this.y + SLEEPER_LENGTH / 2,
-      length,
+      this.length,
     );
   }
 }

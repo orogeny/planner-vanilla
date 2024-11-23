@@ -65,13 +65,13 @@ describe("add new track", () => {
   test("should hold a single double length straight", () => {
     manager.add("2", position);
 
-    expect(manager.tracks[0].spec.catno).toBe("TT8039");
+    expect(manager.tracks[0].catno).toBe("TT8039");
   });
 
   test("should return a piece of track", () => {
     const track = manager.add("1", position);
 
-    expect(track?.spec.catno).toBe("TT8002");
+    expect(track?.catno).toBe("TT8002");
   });
 
   test("should contain track positioned at (150, 250)", () => {

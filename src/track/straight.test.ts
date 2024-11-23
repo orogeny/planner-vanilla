@@ -13,8 +13,8 @@ describe("Straight", () => {
     const straight = new Straight(spec);
 
     expect(straight).not.toBeUndefined();
-    expect(straight.spec.catno).toBe("TT8002");
-    expect(straight.spec.length).toBe(166);
+    expect(straight.catno).toBe("TT8002");
+    expect(straight.length).toBe(166);
   });
 
   test("should have default position", () => {
