@@ -1,3 +1,5 @@
+import { Coords } from "../lib/coords";
+
 const SLEEPER_LENGTH = 22;
 
 type StraightSpec = {
@@ -16,9 +18,9 @@ class Straight {
     this.spec = spec;
   }
 
-  setPosition(x: number, y: number) {
-    this.x = x;
-    this.y = y;
+  setPosition(coords: Coords) {
+    this.x = coords.x;
+    this.y = coords.y;
   }
 
   render(ctx: CanvasRenderingContext2D) {

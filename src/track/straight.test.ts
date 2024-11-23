@@ -27,7 +27,7 @@ describe("Straight", () => {
   test("should have given position", () => {
     const straight = new Straight(spec);
 
-    straight.setPosition(100, 200);
+    straight.setPosition({ x: 100, y: 200 });
 
     expect(straight.x).toBe(100);
     expect(straight.y).toBe(200);
