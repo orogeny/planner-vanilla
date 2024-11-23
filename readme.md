@@ -8,13 +8,13 @@ The aim is to produce a really simple app for laying out model railway track ont
 
 ## Oh no, not another!
 
-Yes.  There are plenty of popular packages already out there - both free and paid-for - and they're *really* packed with features this project won't even begin to challenge.
+Yes. There are plenty of popular packages already out there - both free and paid-for - and they're _really_ packed with features this project won't even begin to challenge.
 
-This app won't have any convenience features, keystroke shortcuts or mouse-click magic.  Nor will it prevent numpty configs - if track is connected so it overlap, the app will be working if it records this accurately.
+This app won't have any convenience features, keystroke shortcuts or mouse-click magic. Nor will it prevent numpty configs - if track is connected so it overlap, the app will be working if it records this accurately.
 
 ## Feature list
 
-By the end we should have a *very* simple app with the following features:
+By the end we should have a _very_ simple app with the following features:
 
 - drag new track from a list of predefined types onto the canvas
 - drop track onto existing track and have it connect
