@@ -4,21 +4,29 @@ import { TrackManager } from "../track/track_manager";
 let canvas: HTMLCanvasElement;
 let ctx: CanvasRenderingContext2D;
 
+let viewWidth: number;
+let viewHeight: number;
+
 let trackManager: TrackManager;
 
 function setup() {
   setupCanvas();
   setupDragHandlers();
+  setupMouseHandlers();
 
   trackManager = new TrackManager(TRACK_CATALOG);
 
-  draw();
+  requestAnimationFrame(draw);
 }
 
 function draw() {
+  ctx.clearRect(0, 0, viewWidth, viewHeight);
+
   for (const track of trackManager.tracks) {
     track.render(ctx);
   }
+
+  requestAnimationFrame(draw);
 }
 
 // Canvas Setup
@@ -28,6 +36,9 @@ function setupCanvas() {
   ctx = canvas.getContext("2d")!;
 
   const { width, height } = canvas.parentElement!.getBoundingClientRect();
+
+  viewWidth = width;
+  viewHeight = height;
 
   canvas.style.width = `${width}px`;
   canvas.style.height = `${height}px`;
@@ -54,6 +65,32 @@ function setupDragHandlers() {
       trackManager.add(id, { x: ev.offsetX, y: ev.offsetY });
 
       draw();
+    }
+  };
+}
+
+// Mouse Event handlers
+
+function setupMouseHandlers() {
+  canvas.onmousedown = (ev: MouseEvent) => {
+    const mouseXY = { x: ev.offsetX, y: ev.offsetY };
+
+    for (const track of trackManager.tracks) {
+      track.onMouseDown(mouseXY);
+    }
+  };
+
+  canvas.onmouseup = () => {
+    for (const track of trackManager.tracks) {
+      track.onMouseUp();
+    }
+  };
+
+  canvas.onmousemove = (ev: MouseEvent) => {
+    const mouseXY = { x: ev.offsetX, y: ev.offsetY };
+
+    for (const track of trackManager.tracks) {
+      track.dragGrabbed(mouseXY);
     }
   };
 }
