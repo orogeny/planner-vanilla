@@ -1,5 +1,5 @@
-import { Coords } from "../lib/coords";
 import { SLEEPER_LENGTH } from "../constants";
+import { Coords } from "../lib/coords";
 
 type StraightSpec = {
   id: string;
@@ -17,11 +17,27 @@ class Straight {
   x = 0;
   y = 0;
 
+  mouseOffset?: Coords;
+
   constructor(spec: StraightSpec) {
     this.trackId = spec.id;
     this.catno = spec.catno;
     this.label = spec.label;
     this.length = spec.length;
+  }
+
+  dragGrabbed(coords: Coords) {
+    if (this.mouseOffset !== undefined) {
+      this.setPosition({
+        x: coords.x + this.mouseOffset.x,
+        y: coords.y + this.mouseOffset.y,
+      });
+    }
+  }
+
+  setPosition(coords: Coords) {
+    this.x = coords.x;
+    this.y = coords.y;
   }
 
   getDropOffset() {
@@ -31,9 +47,18 @@ class Straight {
     } as Coords;
   }
 
-  setPosition(coords: Coords) {
-    this.x = coords.x;
-    this.y = coords.y;
+  isGrabbed() {
+    return this.mouseOffset !== undefined;
+  }
+
+  onMouseDown(coords: Coords) {
+    if (this.encompasses(coords)) {
+      this.mouseOffset = { x: this.x - coords.x, y: this.y - coords.y };
+    }
+  }
+
+  onMouseUp() {
+    this.mouseOffset = undefined;
   }
 
   encompasses(coords: Coords) {
