@@ -56,7 +56,7 @@ describe("Move track around board", () => {
     expect(straight.y).toBe(300);
   });
 
-  test("should register mouse up", () => {
+  test("should not move after mouse up", () => {
     straight.onMouseDown({ x: 110, y: 110 });
     straight.onMouseUp();
 
