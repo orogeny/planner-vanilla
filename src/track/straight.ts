@@ -1,5 +1,5 @@
-import { Coords } from "../lib/coords";
 import { SLEEPER_LENGTH } from "../constants";
+import { Coords } from "../lib/coords";
 
 type StraightSpec = {
   id: string;
@@ -13,8 +13,11 @@ class Straight {
   catno: string;
   label: string;
   length: number;
+  width = SLEEPER_LENGTH;
   x = 0;
   y = 0;
+
+  mouseOffset?: Coords;
 
   constructor(spec: StraightSpec) {
     this.trackId = spec.id;
@@ -23,11 +26,13 @@ class Straight {
     this.length = spec.length;
   }
 
-  getDropOffset() {
-    return {
-      x: this.length / 2,
-      y: SLEEPER_LENGTH / 2,
-    } as Coords;
+  dragGrabbed(coords: Coords) {
+    if (this.mouseOffset !== undefined) {
+      this.setPosition({
+        x: coords.x + this.mouseOffset.x,
+        y: coords.y + this.mouseOffset.y,
+      });
+    }
   }
 
   setPosition(coords: Coords) {
@@ -35,10 +40,45 @@ class Straight {
     this.y = coords.y;
   }
 
+  getDropOffset() {
+    return {
+      x: this.length / 2,
+      y: this.width / 2,
+    } as Coords;
+  }
+
+  isGrabbed() {
+    return this.mouseOffset !== undefined;
+  }
+
+  onMouseDown(coords: Coords) {
+    if (this.encompasses(coords)) {
+      this.mouseOffset = { x: this.x - coords.x, y: this.y - coords.y };
+    }
+  }
+
+  onMouseUp() {
+    this.mouseOffset = undefined;
+  }
+
+  encompasses(coords: Coords) {
+    const { x, y } = coords;
+
+    if (
+      x < this.x ||
+      y < this.y ||
+      x > this.x + this.length ||
+      y > this.y + this.width
+    ) {
+      return false;
+    }
+    return true;
+  }
+
   render(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.fillStyle = "#0000ff";
-    ctx.rect(this.x, this.y, this.length, SLEEPER_LENGTH);
+    ctx.rect(this.x, this.y, this.length, this.width);
     ctx.fill();
 
     ctx.fillStyle = "#ffffff";
@@ -48,7 +88,7 @@ class Straight {
     ctx.fillText(
       this.catno,
       this.x + this.length / 2,
-      this.y + SLEEPER_LENGTH / 2,
+      this.y + this.width / 2,
       this.length,
     );
   }
