@@ -1,3 +1,4 @@
+import { Swatch } from "./track/colour_chart";
 import { StraightSpec } from "./track/straight";
 
 const SLEEPER_LENGTH = 22;
@@ -17,4 +18,16 @@ const TRACK_CATALOG: StraightSpec[] = [
   },
 ];
 
-export { SLEEPER_LENGTH, TRACK_CATALOG };
+const COLOUR_CHART: Array<[string, string[]]> = [
+  ["1", ["#00ffff", "#20dfdf", "#107070", "#ffffff"]],
+  ["2", ["#d400ff", "#bf20df", "#601070", "#ffffff"]],
+];
+
+const DEFAULT_SWATCH: Swatch = {
+  highlight: "#2040df", // hsl(240,75,50)
+  normal: "#002aff", // hsl(240, 100, 50)
+  shaded: "#101070", // hsl(240, 75, 24)
+  text: "#ffffff",
+};
+
+export { COLOUR_CHART, DEFAULT_SWATCH, SLEEPER_LENGTH, TRACK_CATALOG };

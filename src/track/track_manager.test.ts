@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, test } from "vitest";
+import { COLOUR_CHART, SLEEPER_LENGTH } from "../constants";
+import { Coords } from "../lib/coords";
 import { StraightSpec } from "./straight";
 import { TrackManager } from "./track_manager";
-import { Coords } from "../lib/coords";
-import { SLEEPER_LENGTH } from "../constants";
 
 const catalog: StraightSpec[] = [
   {
@@ -78,5 +78,15 @@ describe("add new track", () => {
 
     expect(track.x).toBe(expectedX);
     expect(track.y).toBe(expectedY);
+  });
+});
+
+describe("colour chart", () => {
+  test("should use COLOUR_CHART", () => {
+    manager.add("1", position);
+
+    const [, [highlight]] = COLOUR_CHART[0];
+
+    expect(manager.tracks[0].swatch.highlight).toBe(highlight);
   });
 });

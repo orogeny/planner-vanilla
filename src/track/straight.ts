@@ -1,5 +1,6 @@
-import { SLEEPER_LENGTH } from "../constants";
+import { DEFAULT_SWATCH, SLEEPER_LENGTH } from "../constants";
 import { Coords } from "../lib/coords";
+import { Swatch } from "./colour_chart";
 
 type StraightSpec = {
   id: string;
@@ -14,6 +15,10 @@ class Straight {
   label: string;
   length: number;
   width = SLEEPER_LENGTH;
+  swatch: Swatch = DEFAULT_SWATCH;
+  fillColour: keyof Swatch;
+  textColour: keyof Swatch;
+
   x = 0;
   y = 0;
 
@@ -24,6 +29,8 @@ class Straight {
     this.catno = spec.catno;
     this.label = spec.label;
     this.length = spec.length;
+    this.fillColour = "normal";
+    this.textColour = "text";
   }
 
   dragGrabbed(coords: Coords) {
@@ -40,6 +47,10 @@ class Straight {
     this.y = coords.y;
   }
 
+  setSwatch(swatch: Swatch) {
+    this.swatch = swatch;
+  }
+
   getDropOffset() {
     return {
       x: this.length / 2,
@@ -54,11 +65,13 @@ class Straight {
   onMouseDown(coords: Coords) {
     if (this.encompasses(coords)) {
       this.mouseOffset = { x: this.x - coords.x, y: this.y - coords.y };
+      this.fillColour = "highlight";
     }
   }
 
   onMouseUp() {
     this.mouseOffset = undefined;
+    this.fillColour = "normal";
   }
 
   encompasses(coords: Coords) {
@@ -77,11 +90,11 @@ class Straight {
 
   render(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
-    ctx.fillStyle = "#0000ff";
+    ctx.fillStyle = this.swatch[this.fillColour];
     ctx.rect(this.x, this.y, this.length, this.width);
     ctx.fill();
 
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = this.swatch[this.textColour];
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.font = "18px arial";
