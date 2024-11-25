@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, test } from "vitest";
 import { TrackManager } from "./track_manager";
+import { Straight } from "./straight";
 
 let manager: TrackManager;
 
@@ -14,7 +15,7 @@ beforeEach(() => {
   console.log(`second:(${manager.tracks[1].x}, ${manager.tracks[1].y})`);
 });
 
-describe("z-index", () => {
+describe("TrackManager z-index", () => {
   test("should not be any track", () => {
     expect(manager.getTracksAt({ x: 40, y: 50 })).toHaveLength(0);
   });
@@ -25,5 +26,20 @@ describe("z-index", () => {
 
   test("should find two tracks", () => {
     expect(manager.getTracksAt({ x: 150, y: 108 })).toHaveLength(2);
+  });
+});
+
+describe("Straight z-index", () => {
+  test("should have defaualt z-index of zero", () => {
+    const straight = new Straight(spec);
+
+    expect(straight.indexZ).toBe(0);
+  });
+
+  test("should have z-index set to ten", () => {
+    const straight = new Straight(spec);
+    straight.setIndexZ(10);
+
+    expect(straight.indexZ).toBe(10);
   });
 });

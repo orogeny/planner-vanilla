@@ -18,6 +18,7 @@ class Straight {
   swatch: Swatch = DEFAULT_SWATCH;
   fillColour: keyof Swatch;
   textColour: keyof Swatch;
+  indexZ = 0;
 
   x = 0;
   y = 0;
@@ -49,6 +50,10 @@ class Straight {
 
   setSwatch(swatch: Swatch) {
     this.swatch = swatch;
+  }
+
+  setIndexZ(indexZ: number) {
+    this.indexZ = indexZ;
   }
 
   getDropOffset() {
@@ -89,8 +94,10 @@ class Straight {
   }
 
   render(ctx: CanvasRenderingContext2D) {
-    ctx.beginPath();
+    ctx.save();
+
     ctx.fillStyle = this.swatch[this.fillColour];
+    ctx.beginPath();
     ctx.rect(this.x, this.y, this.length, this.width);
     ctx.fill();
 
@@ -98,12 +105,15 @@ class Straight {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.font = "18px arial";
+    ctx.beginPath();
     ctx.fillText(
       this.catno,
       this.x + this.length / 2,
       this.y + this.width / 2,
       this.length,
     );
+
+    ctx.restore();
   }
 }
 
