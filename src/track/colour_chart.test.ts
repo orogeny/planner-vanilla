@@ -1,26 +1,26 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { colourChart, Swatch } from "./colour_chart";
+import { colourLookup, Swatch } from "./colour_chart";
 import { DEFAULT_SWATCH } from "../constants";
 
 describe("colour chart", () => {
   test("should lookup colour for track", () => {
-    const colourLookup = colourChart([]);
+    const colourChart = colourLookup([]);
 
-    expect(colourLookup).not.toBeUndefined();
+    expect(colourChart).not.toBeUndefined();
   });
 
   test("should return colour options for a track", () => {
-    const colourLookup = colourChart([]);
+    const colourChart = colourLookup([]);
 
-    const swatch = colourLookup("1");
+    const swatch = colourChart("1");
 
     expect(swatch).not.toBeUndefined();
   });
 
   test("should return object with colour swatch", () => {
-    const colourLookup = colourChart([]);
+    const colourChart = colourLookup([]);
 
-    const swatch = colourLookup("1");
+    const swatch = colourChart("1");
 
     expect(swatch).toHaveProperty("normal");
     expect(swatch).toHaveProperty("shaded");
@@ -28,15 +28,15 @@ describe("colour chart", () => {
   });
 
   test("should return default colour swatch", () => {
-    const colourLookup = colourChart([]);
-    const swatch = colourLookup("82");
+    const colourChart = colourLookup([]);
+    const swatch = colourChart("82");
 
     expect(swatch.shaded).toBe(DEFAULT_SWATCH.shaded);
   });
 });
 
 describe("supplied colour chart", () => {
-  let colourLookup: (k: string) => Swatch;
+  let colourChart: (k: string) => Swatch;
 
   const chart: Array<[string, string[]]> = [
     ["1", ["#00ffff", "#20dfdf", "#107070", "#ffffff"]],
@@ -44,17 +44,17 @@ describe("supplied colour chart", () => {
   ];
 
   beforeEach(() => {
-    colourLookup = colourChart(chart);
+    colourChart = colourLookup(chart);
   });
 
   test("should return default", () => {
-    const swatch = colourLookup("99");
+    const swatch = colourChart("99");
 
     expect(swatch.highlight).toBe(DEFAULT_SWATCH.highlight);
   });
 
   test("should return chart's defined colour", () => {
-    const swatch = colourLookup("2");
+    const swatch = colourChart("2");
 
     const [, [, normal]] = chart[1];
 

@@ -20,4 +20,4 @@ function colourLookup(chart: Array<[string, string[]]>): ColourChart {
     swatches.has(id) ? (swatches.get(id) as Swatch) : DEFAULT_SWATCH;
 }
 
-export { colourLookup as colourChart, type Swatch, type ColourChart };
+export { colourLookup, type Swatch, type ColourChart };
