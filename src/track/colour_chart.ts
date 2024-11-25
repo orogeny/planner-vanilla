@@ -1,3 +1,5 @@
+import { DEFAULT_SWATCH } from "../constants";
+
 type Swatch = {
   highlight: string;
   normal: string;
@@ -5,14 +7,9 @@ type Swatch = {
   text: string;
 };
 
-const other: Swatch = {
-  highlight: "#0000ff", // hsl(240, 100, 50)
-  normal: "#2020df", // hsl(240,75,50)
-  shaded: "#101070", // hsl(240, 75, 24)
-  text: "#ffffff",
-};
+type ColourChart = (key: string) => Swatch;
 
-function colourChart(chart: Array<[string, string[]]>) {
+function colourLookup(chart: Array<[string, string[]]>): ColourChart {
   const swatches = chart.reduce((acc, [id, swatch]) => {
     const [highlight, normal, shaded, text] = swatch;
 
@@ -20,7 +17,7 @@ function colourChart(chart: Array<[string, string[]]>) {
   }, new Map<string, Swatch>());
 
   return (id: string): Swatch =>
-    swatches.has(id) ? (swatches.get(id) as Swatch) : other;
+    swatches.has(id) ? (swatches.get(id) as Swatch) : DEFAULT_SWATCH;
 }
 
-export { colourChart, type Swatch };
+export { colourLookup as colourChart, type Swatch, type ColourChart };
