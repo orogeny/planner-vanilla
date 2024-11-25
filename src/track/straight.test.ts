@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { SLEEPER_LENGTH } from "../constants";
-import { Straight, StraightSpec } from "./straight";
 import { Swatch } from "./colour_chart";
+import { Straight, StraightSpec } from "./straight";
 
 const spec: StraightSpec = {
   id: "1",

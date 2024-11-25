@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, test } from "vitest";
+import { COLOUR_CHART, SLEEPER_LENGTH } from "../constants";
+import { Coords } from "../lib/coords";
 import { StraightSpec } from "./straight";
 import { TrackManager } from "./track_manager";
-import { Coords } from "../lib/coords";
-import { COLOUR_CHART, DEFAULT_SWATCH, SLEEPER_LENGTH } from "../constants";
 
 const catalog: StraightSpec[] = [
   {

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { colourLookup, Swatch } from "./colour_chart";
 import { DEFAULT_SWATCH } from "../constants";
+import { colourLookup, Swatch } from "./colour_chart";
 
 describe("colour chart", () => {
   test("should lookup colour for track", () => {

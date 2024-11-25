@@ -1,6 +1,6 @@
 import { COLOUR_CHART } from "../constants";
 import { Coords } from "../lib/coords";
-import { colourLookup, ColourChart } from "./colour_chart";
+import { ColourChart, colourLookup } from "./colour_chart";
 import { Straight, StraightSpec } from "./straight";
 
 class TrackManager {
