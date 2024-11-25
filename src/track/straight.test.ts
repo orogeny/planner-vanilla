@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { SLEEPER_LENGTH } from "../constants";
 import { Straight, StraightSpec } from "./straight";
+import { Swatch } from "./colour_chart";
 
 const spec: StraightSpec = {
   id: "1",
@@ -79,5 +80,31 @@ describe("Straight", () => {
 
     const centre = { x: 183, y: 111 };
     expect(straight.encompasses(centre)).toBe(true);
+  });
+
+  test("should have a swatch property", () => {
+    const straight = new Straight(spec);
+
+    expect(straight).toHaveProperty("swatch");
+  });
+
+  test("should have default swatch", () => {
+    const straight = new Straight(spec);
+
+    expect(straight.swatch.text).toBe("#ffffff");
+  });
+
+  test("should replace default swatch", () => {
+    const red: Swatch = {
+      highlight: "#00ff00",
+      normal: "#00ff01",
+      shaded: "#00ff02",
+      text: "#ffffff",
+    };
+
+    const straight = new Straight(spec);
+    straight.setSwatch(red);
+
+    expect(straight.swatch.shaded).toBe("#00ff02");
   });
 });

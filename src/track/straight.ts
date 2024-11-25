@@ -1,5 +1,6 @@
-import { SLEEPER_LENGTH } from "../constants";
+import { DEFAULT_SWATCH, SLEEPER_LENGTH } from "../constants";
 import { Coords } from "../lib/coords";
+import { Swatch } from "./colour_chart";
 
 type StraightSpec = {
   id: string;
@@ -14,6 +15,7 @@ class Straight {
   label: string;
   length: number;
   width = SLEEPER_LENGTH;
+  swatch: Swatch = DEFAULT_SWATCH;
   x = 0;
   y = 0;
 
@@ -38,6 +40,10 @@ class Straight {
   setPosition(coords: Coords) {
     this.x = coords.x;
     this.y = coords.y;
+  }
+
+  setSwatch(swatch: Swatch) {
+    this.swatch = swatch;
   }
 
   getDropOffset() {
