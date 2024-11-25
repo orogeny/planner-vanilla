@@ -29,6 +29,10 @@ class TrackManager {
 
     this.tracks.push(track);
   }
+
+  getTracksAt(coords: Coords) {
+    return this.tracks.filter((t) => t.encompasses(coords));
+  }
 }
 
 export { TrackManager };
