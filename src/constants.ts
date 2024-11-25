@@ -24,8 +24,8 @@ const COLOUR_CHART: Array<[string, string[]]> = [
 ];
 
 const DEFAULT_SWATCH: Swatch = {
-  highlight: "#0000ff", // hsl(240, 100, 50)
-  normal: "#2020df", // hsl(240,75,50)
+  highlight: "#2040df", // hsl(240,75,50)
+  normal: "#002aff", // hsl(240, 100, 50)
   shaded: "#101070", // hsl(240, 75, 24)
   text: "#ffffff",
 };
