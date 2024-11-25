@@ -18,7 +18,7 @@ class Straight {
   swatch: Swatch = DEFAULT_SWATCH;
   fillColour: keyof Swatch;
   textColour: keyof Swatch;
-  indexZ = 0;
+  zIndex = 0;
 
   x = 0;
   y = 0;
@@ -52,8 +52,8 @@ class Straight {
     this.swatch = swatch;
   }
 
-  setIndexZ(indexZ: number) {
-    this.indexZ = indexZ;
+  setZIndex(zIndex: number) {
+    this.zIndex = zIndex;
   }
 
   getDropOffset() {

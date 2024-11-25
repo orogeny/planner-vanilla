@@ -17,15 +17,15 @@ beforeEach(() => {
 
 describe("TrackManager z-index", () => {
   test("should not be any track", () => {
-    expect(manager.getTracksAt({ x: 40, y: 50 })).toHaveLength(0);
+    expect(manager.getTrackAt({ x: 40, y: 50 })).toHaveLength(0);
   });
 
   test("should find single track", () => {
-    expect(manager.getTracksAt({ x: 50, y: 100 })).toHaveLength(1);
+    expect(manager.getTrackAt({ x: 50, y: 100 })).toHaveLength(1);
   });
 
   test("should find two tracks", () => {
-    expect(manager.getTracksAt({ x: 150, y: 108 })).toHaveLength(2);
+    expect(manager.getTrackAt({ x: 150, y: 108 })).toHaveLength(2);
   });
 });
 
@@ -33,13 +33,13 @@ describe("Straight z-index", () => {
   test("should have defaualt z-index of zero", () => {
     const straight = new Straight(spec);
 
-    expect(straight.indexZ).toBe(0);
+    expect(straight.zIndex).toBe(0);
   });
 
   test("should have z-index set to ten", () => {
     const straight = new Straight(spec);
-    straight.setIndexZ(10);
+    straight.setZIndex(10);
 
-    expect(straight.indexZ).toBe(10);
+    expect(straight.zIndex).toBe(10);
   });
 });
