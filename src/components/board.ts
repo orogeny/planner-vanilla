@@ -1,4 +1,4 @@
-import { TRACK_CATALOG } from "../constants";
+import { StraightSpec } from "../track/straight";
 import { TrackManager } from "../track/track_manager";
 
 let canvas: HTMLCanvasElement;
@@ -9,12 +9,12 @@ let viewHeight: number;
 
 let trackManager: TrackManager;
 
-function setup() {
+function setup(trackCatalog: StraightSpec[]) {
   setupCanvas();
   setupDragHandlers();
   setupMouseHandlers();
 
-  trackManager = new TrackManager(TRACK_CATALOG);
+  trackManager = new TrackManager(trackCatalog);
 
   requestAnimationFrame(draw);
 }
