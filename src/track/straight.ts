@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import { DEFAULT_SWATCH, SLEEPER_LENGTH } from "../constants";
 import { Coords } from "../lib/coords";
 import { Swatch } from "./colour_chart";
@@ -10,6 +11,7 @@ type StraightSpec = {
 };
 
 class Straight {
+  id: string;
   trackId: string;
   catno: string;
   label: string;
@@ -26,6 +28,7 @@ class Straight {
   mouseOffset?: Coords;
 
   constructor(spec: StraightSpec) {
+    this.id = nanoid();
     this.trackId = spec.id;
     this.catno = spec.catno;
     this.label = spec.label;

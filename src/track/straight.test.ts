@@ -11,6 +11,13 @@ const spec: StraightSpec = {
 };
 
 describe("Straight", () => {
+  test("should be assigned an id", () => {
+    const straight = new Straight(spec);
+
+    expect(straight).toHaveProperty("id");
+    expect(straight.id).toHaveLength(21);
+  });
+
   test("should have catno and length", () => {
     const straight = new Straight(spec);
 
