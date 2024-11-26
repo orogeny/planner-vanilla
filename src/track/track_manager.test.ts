@@ -63,6 +63,12 @@ describe("add new track", () => {
     expect(track).toBeUndefined();
   });
 
+  test("should return known track", () => {
+    const track = manager.add("2", position);
+
+    expect(track?.catno).toBe("TT8039");
+  });
+
   test("should hold a single double length straight", () => {
     manager.add("2", position);
 
