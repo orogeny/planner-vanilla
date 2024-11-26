@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { TrackManager } from "./track_manager";
 import { Straight } from "./straight";
+import { TrackManager } from "./track_manager";
 
 let manager: TrackManager;
 
