@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import { DEFAULT_SWATCH, SLEEPER_LENGTH } from "../constants";
 import { Coords } from "../lib/coords";
 import { Swatch } from "./colour_chart";
@@ -10,6 +11,7 @@ type StraightSpec = {
 };
 
 class Straight {
+  id: string;
   trackId: string;
   catno: string;
   label: string;
@@ -18,6 +20,7 @@ class Straight {
   swatch: Swatch = DEFAULT_SWATCH;
   fillColour: keyof Swatch;
   textColour: keyof Swatch;
+  zIndex = 0;
 
   x = 0;
   y = 0;
@@ -25,6 +28,7 @@ class Straight {
   mouseOffset?: Coords;
 
   constructor(spec: StraightSpec) {
+    this.id = nanoid();
     this.trackId = spec.id;
     this.catno = spec.catno;
     this.label = spec.label;
@@ -49,6 +53,10 @@ class Straight {
 
   setSwatch(swatch: Swatch) {
     this.swatch = swatch;
+  }
+
+  setZIndex(zIndex: number) {
+    this.zIndex = zIndex;
   }
 
   getDropOffset() {
@@ -89,8 +97,10 @@ class Straight {
   }
 
   render(ctx: CanvasRenderingContext2D) {
-    ctx.beginPath();
+    ctx.save();
+
     ctx.fillStyle = this.swatch[this.fillColour];
+    ctx.beginPath();
     ctx.rect(this.x, this.y, this.length, this.width);
     ctx.fill();
 
@@ -98,12 +108,15 @@ class Straight {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.font = "18px arial";
+    ctx.beginPath();
     ctx.fillText(
       this.catno,
       this.x + this.length / 2,
       this.y + this.width / 2,
       this.length,
     );
+
+    ctx.restore();
   }
 }
 

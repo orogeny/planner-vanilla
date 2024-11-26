@@ -1,4 +1,5 @@
-import { TRACK_CATALOG } from "../constants";
+import { Coords } from "../lib/coords";
+import { StraightSpec } from "../track/straight";
 import { TrackManager } from "../track/track_manager";
 
 let canvas: HTMLCanvasElement;
@@ -9,21 +10,34 @@ let viewHeight: number;
 
 let trackManager: TrackManager;
 
-function setup() {
+let zIndex = 0;
+let selected: { id: string; coords: Coords } | undefined;
+
+function setup(trackCatalog: StraightSpec[]) {
   setupCanvas();
   setupDragHandlers();
   setupMouseHandlers();
 
-  trackManager = new TrackManager(TRACK_CATALOG);
+  trackManager = new TrackManager(trackCatalog);
 
   requestAnimationFrame(draw);
 }
 
 function draw() {
+  const zIndexOrder = trackManager.tracks
+    .slice()
+    .sort((a, b) => a.zIndex - b.zIndex);
+
   ctx.clearRect(0, 0, viewWidth, viewHeight);
 
-  for (const track of trackManager.tracks) {
+  for (const track of zIndexOrder) {
     track.render(ctx);
+  }
+
+  if (selected !== undefined) {
+    const track = trackManager.tracks.find((t) => t.id === selected?.id);
+
+    track?.render(ctx);
   }
 
   requestAnimationFrame(draw);
@@ -62,7 +76,8 @@ function setupDragHandlers() {
     if (dropped) {
       const [_, id] = dropped.split("#");
 
-      trackManager.add(id, { x: ev.offsetX, y: ev.offsetY });
+      const track = trackManager.add(id, { x: ev.offsetX, y: ev.offsetY });
+      track?.setZIndex(zIndex++);
 
       draw();
     }
@@ -75,13 +90,29 @@ function setupMouseHandlers() {
   canvas.onmousedown = (ev: MouseEvent) => {
     const mouseXY = { x: ev.offsetX, y: ev.offsetY };
 
-    for (const track of trackManager.tracks) {
-      track.onMouseDown(mouseXY);
+    const clicked = trackManager.getTrackAt(mouseXY);
+
+    if (clicked.length === 0) {
+      return;
     }
+
+    const track = clicked.reduce((top, t) => (t.zIndex > top.zIndex ? t : top));
+
+    selected = { id: track.id, coords: { x: track.x, y: track.y } };
+
+    track.onMouseDown(mouseXY);
   };
 
   canvas.onmouseup = () => {
-    for (const track of trackManager.tracks) {
+    const track = trackManager.tracks.find((t) => t.id === selected?.id);
+
+    if (track !== undefined) {
+      if (selected !== undefined) {
+        if (selected.coords.x !== track.x || selected.coords.y !== track.y) {
+          track.setZIndex(zIndex++);
+        }
+        selected = undefined;
+      }
       track.onMouseUp();
     }
   };

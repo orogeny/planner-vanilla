@@ -28,6 +28,12 @@ class TrackManager {
     track.setSwatch(this.colourChart(spec.id));
 
     this.tracks.push(track);
+
+    return track;
+  }
+
+  getTrackAt(coords: Coords) {
+    return this.tracks.filter((t) => t.encompasses(coords));
   }
 }
 
