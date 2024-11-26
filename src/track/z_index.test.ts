@@ -10,9 +10,6 @@ beforeEach(() => {
   manager = new TrackManager([spec]);
   manager.add("0", { x: 100, y: 100 });
   manager.add("0", { x: 200, y: 110 });
-
-  console.log(`first:(${manager.tracks[0].x}, ${manager.tracks[0].y})`);
-  console.log(`second:(${manager.tracks[1].x}, ${manager.tracks[1].y})`);
 });
 
 describe("TrackManager z-index", () => {
