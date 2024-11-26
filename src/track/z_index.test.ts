@@ -30,7 +30,7 @@ describe("TrackManager z-index", () => {
 });
 
 describe("Straight z-index", () => {
-  test("should have defaualt z-index of zero", () => {
+  test("should have default z-index of zero", () => {
     const straight = new Straight(spec);
 
     expect(straight.zIndex).toBe(0);
