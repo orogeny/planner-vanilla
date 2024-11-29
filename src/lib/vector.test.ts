@@ -6,8 +6,8 @@ describe("Vector", () => {
     const vector = new Vector(3, 4);
 
     expect(vector).not.toBeUndefined();
-    expect(vector.x).toBe(3);
-    expect(vector.y).toBe(4);
+    expect(vector.X).toBe(3);
+    expect(vector.Y).toBe(4);
   });
 
   test("should add vectors", () => {
@@ -17,8 +17,8 @@ describe("Vector", () => {
 
     const sum = v1.add(v2);
 
-    expect(sum.x).toBe(16);
-    expect(sum.y).toBe(9);
+    expect(sum.X).toBe(16);
+    expect(sum.Y).toBe(9);
   });
 
   test("should subtract vectors", () => {
@@ -28,7 +28,15 @@ describe("Vector", () => {
 
     const diff = v1.subtract(v2);
 
-    expect(diff.x).toBe(-8);
-    expect(diff.y).toBe(-3);
+    expect(diff.X).toBe(-8);
+    expect(diff.Y).toBe(-3);
+  });
+
+  test("should return a Vector", () => {
+    const vector = Vector.of(10, 20);
+
+    expect(vector).not.toBeUndefined();
+    expect(vector.X).toBe(10);
+    expect(vector.Y).toBe(20);
   });
 });
