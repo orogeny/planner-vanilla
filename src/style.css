@@ -93,3 +93,27 @@
   justify-content: center;
   align-items: center;
 }
+
+.container .contextmenu {
+  visibility: hidden;
+  position: absolute;
+
+  width: 196px;
+  padding: 0.5rem 0;
+  border-radius: 0.625rem;
+  box-shadow: 0 0 1.25rem rgba(37, 40, 42, 0.22);
+
+  list-style-type: none;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.contextmenu-item {
+  padding: 0.25rem 0.75rem;
+}
+
+.contextmenu-item:hover {
+  background-color: #eeeeee;
+  cursor: pointer;
+}

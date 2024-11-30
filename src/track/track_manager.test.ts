@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from "vitest";
 import { COLOUR_CHART, SLEEPER_LENGTH } from "../constants";
-import { Coords } from "../lib/coords";
+import { Vector } from "../lib/vector";
 import { StraightSpec } from "./straight";
 import { TrackManager } from "./track_manager";
 
@@ -19,7 +19,7 @@ const catalog: StraightSpec[] = [
   },
 ];
 
-const position: Coords = { x: 100, y: 200 };
+const position = Vector.of(100, 200);
 
 let manager: TrackManager;
 
@@ -60,7 +60,7 @@ describe("add new track", () => {
   test("should not return unknown track", () => {
     const track = manager.add("xyz", position);
 
-    expect(track).toBeUndefined();
+    expect(track).toBeNull();
   });
 
   test("should return known track", () => {
@@ -78,12 +78,12 @@ describe("add new track", () => {
   test("should contain track positioned offset from (150, 250)", () => {
     const expectedX = 150 - 166 / 2;
     const expectedY = 250 - SLEEPER_LENGTH / 2;
-    manager.add("1", { x: 150, y: 250 });
+    manager.add("1", Vector.of(150, 250));
 
     const track = manager.tracks[0];
 
-    expect(track.x).toBe(expectedX);
-    expect(track.y).toBe(expectedY);
+    expect(track.position.X).toBe(expectedX);
+    expect(track.position.Y).toBe(expectedY);
   });
 });
 

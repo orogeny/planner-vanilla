@@ -1,5 +1,5 @@
 import { COLOUR_CHART } from "../constants";
-import { Coords } from "../lib/coords";
+import { Vector } from "../lib/vector";
 import { ColourChart, colourLookup } from "./colour_chart";
 import { Straight, StraightSpec } from "./straight";
 
@@ -14,16 +14,15 @@ class TrackManager {
     this.colourChart = colourLookup(COLOUR_CHART);
   }
 
-  add(productId: string, coords: Coords) {
+  add(productId: string, vector: Vector) {
     const spec = this.catalog.find((p) => p.id === productId);
 
     if (spec === undefined) {
-      return;
+      return null;
     }
 
     const track = new Straight(spec);
-    const offset = track.getDropOffset();
-    const position = { x: coords.x - offset.x, y: coords.y - offset.y };
+    const position = vector.subtract(track.centre);
     track.setPosition(position);
     track.setSwatch(this.colourChart(spec.id));
 
@@ -32,8 +31,8 @@ class TrackManager {
     return track;
   }
 
-  getTrackAt(coords: Coords) {
-    return this.tracks.filter((t) => t.encompasses(coords));
+  getTrackAt(vector: Vector) {
+    return this.tracks.filter((t) => t.encompasses(vector));
   }
 }
 
