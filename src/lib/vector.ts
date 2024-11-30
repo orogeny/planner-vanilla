@@ -26,6 +26,10 @@ class Vector {
   subtract(other: Vector) {
     return new Vector(this._x - other._x, this._y - other._y);
   }
+
+  equals(other: Vector) {
+    return this._x === other._x && this._y === other._y;
+  }
 }
 
 export { Vector };

@@ -32,6 +32,20 @@ describe("Vector", () => {
     expect(diff.Y).toBe(-3);
   });
 
+  test("should not be equal", () => {
+    const v1 = new Vector(1, 1);
+    const v2 = new Vector(1, 2);
+
+    expect(v1.equals(v2)).toBe(false);
+  });
+
+  test("should be equal", () => {
+    const v1 = new Vector(2, 2);
+    const v2 = new Vector(2, 2);
+
+    expect(v1.equals(v2)).toBe(true);
+  });
+
   test("should return a Vector", () => {
     const vector = Vector.of(10, 20);
 
