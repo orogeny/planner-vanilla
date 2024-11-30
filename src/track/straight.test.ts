@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { SLEEPER_LENGTH } from "../constants";
+import { Vector } from "../lib/vector";
 import { Swatch } from "./colour_chart";
 import { Straight, StraightSpec } from "./straight";
 
@@ -29,36 +29,27 @@ describe("Straight", () => {
   test("should have default position", () => {
     const straight = new Straight(spec);
 
-    expect(straight.x).toBe(0);
-    expect(straight.y).toBe(0);
+    expect(straight.position.X).toBe(0);
+    expect(straight.position.Y).toBe(0);
   });
 
   test("should have given position", () => {
     const straight = new Straight(spec);
 
-    straight.setPosition({ x: 100, y: 200 });
+    straight.setPosition(Vector.of(100, 200));
 
-    expect(straight.x).toBe(100);
-    expect(straight.y).toBe(200);
-  });
-
-  test("should have offset in centre", () => {
-    const straight = new Straight(spec);
-
-    const offset = straight.getDropOffset();
-
-    expect(offset.x).toBe(spec.length / 2);
-    expect(offset.y).toBe(SLEEPER_LENGTH / 2);
+    expect(straight.position.X).toBe(100);
+    expect(straight.position.Y).toBe(200);
   });
 
   test("should not encompass outside coords", () => {
     const straight = new Straight(spec);
-    straight.setPosition({ x: 100, y: 100 });
+    straight.setPosition(Vector.of(100, 100));
 
-    const above = { x: 150, y: 99 };
-    const below = { x: 150, y: 123 };
-    const left = { x: 99, y: 106 };
-    const right = { x: 267, y: 106 };
+    const above = Vector.of(150, 99);
+    const below = Vector.of(150, 123);
+    const left = Vector.of(99, 106);
+    const right = Vector.of(267, 106);
 
     expect(straight.encompasses(above)).toBe(false);
     expect(straight.encompasses(below)).toBe(false);
@@ -68,12 +59,12 @@ describe("Straight", () => {
 
   test("should encompass coords on border", () => {
     const straight = new Straight(spec);
-    straight.setPosition({ x: 100, y: 100 });
+    straight.setPosition(Vector.of(100, 100));
 
-    const top = { x: 150, y: 100 };
-    const bottom = { x: 150, y: 122 };
-    const left = { x: 100, y: 106 };
-    const right = { x: 266, y: 106 };
+    const top = Vector.of(150, 100);
+    const bottom = Vector.of(150, 122);
+    const left = Vector.of(100, 106);
+    const right = Vector.of(266, 106);
 
     expect(straight.encompasses(top)).toBe(true);
     expect(straight.encompasses(bottom)).toBe(true);
@@ -83,9 +74,9 @@ describe("Straight", () => {
 
   test("should encompass coords inside", () => {
     const straight = new Straight(spec);
-    straight.setPosition({ x: 100, y: 100 });
+    straight.setPosition(Vector.of(100, 100));
 
-    const centre = { x: 183, y: 111 };
+    const centre = Vector.of(183, 111);
     expect(straight.encompasses(centre)).toBe(true);
   });
 

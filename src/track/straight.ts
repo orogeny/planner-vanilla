@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { DEFAULT_SWATCH, SLEEPER_LENGTH } from "../constants";
-import { Coords } from "../lib/coords";
+import { Vector } from "../lib/vector";
 import { Swatch } from "./colour_chart";
 
 type StraightSpec = {
@@ -21,11 +21,8 @@ class Straight {
   fillColour: keyof Swatch;
   textColour: keyof Swatch;
   zIndex = 0;
-
-  x = 0;
-  y = 0;
-
-  mouseOffset?: Coords;
+  centre: Vector;
+  position: Vector;
 
   constructor(spec: StraightSpec) {
     this.id = nanoid();
@@ -35,20 +32,13 @@ class Straight {
     this.length = spec.length;
     this.fillColour = "normal";
     this.textColour = "text";
+
+    this.centre = Vector.of(this.length / 2, this.width / 2);
+    this.position = Vector.of(0, 0);
   }
 
-  dragGrabbed(coords: Coords) {
-    if (this.mouseOffset !== undefined) {
-      this.setPosition({
-        x: coords.x + this.mouseOffset.x,
-        y: coords.y + this.mouseOffset.y,
-      });
-    }
-  }
-
-  setPosition(coords: Coords) {
-    this.x = coords.x;
-    this.y = coords.y;
+  setPosition(vector: Vector) {
+    this.position = vector;
   }
 
   setSwatch(swatch: Swatch) {
@@ -59,37 +49,12 @@ class Straight {
     this.zIndex = zIndex;
   }
 
-  getDropOffset() {
-    return {
-      x: this.length / 2,
-      y: this.width / 2,
-    } as Coords;
-  }
-
-  isGrabbed() {
-    return this.mouseOffset !== undefined;
-  }
-
-  onMouseDown(coords: Coords) {
-    if (this.encompasses(coords)) {
-      this.mouseOffset = { x: this.x - coords.x, y: this.y - coords.y };
-      this.fillColour = "highlight";
-    }
-  }
-
-  onMouseUp() {
-    this.mouseOffset = undefined;
-    this.fillColour = "normal";
-  }
-
-  encompasses(coords: Coords) {
-    const { x, y } = coords;
-
+  encompasses(vector: Vector) {
     if (
-      x < this.x ||
-      y < this.y ||
-      x > this.x + this.length ||
-      y > this.y + this.width
+      vector.X < this.position.X ||
+      vector.Y < this.position.Y ||
+      vector.X > this.position.X + this.length ||
+      vector.Y > this.position.Y + this.width
     ) {
       return false;
     }
@@ -101,7 +66,7 @@ class Straight {
 
     ctx.fillStyle = this.swatch[this.fillColour];
     ctx.beginPath();
-    ctx.rect(this.x, this.y, this.length, this.width);
+    ctx.rect(this.position.X, this.position.Y, this.length, this.width);
     ctx.fill();
 
     ctx.fillStyle = this.swatch[this.textColour];
@@ -111,8 +76,8 @@ class Straight {
     ctx.beginPath();
     ctx.fillText(
       this.catno,
-      this.x + this.length / 2,
-      this.y + this.width / 2,
+      this.position.X + this.length / 2,
+      this.position.Y + this.width / 2,
       this.length,
     );
 
