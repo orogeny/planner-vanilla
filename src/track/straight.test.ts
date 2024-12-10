@@ -29,8 +29,8 @@ describe("Straight", () => {
   test("should have default position", () => {
     const straight = new Straight(spec);
 
-    expect(straight.position.X).toBe(0);
-    expect(straight.position.Y).toBe(0);
+    expect(straight.position.x).toBe(0);
+    expect(straight.position.y).toBe(0);
   });
 
   test("should have given position", () => {
@@ -38,8 +38,8 @@ describe("Straight", () => {
 
     straight.setPosition(Vector.of(100, 200));
 
-    expect(straight.position.X).toBe(100);
-    expect(straight.position.Y).toBe(200);
+    expect(straight.position.x).toBe(100);
+    expect(straight.position.y).toBe(200);
   });
 
   test("should not encompass outside coords", () => {

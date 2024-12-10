@@ -82,8 +82,8 @@ describe("add new track", () => {
 
     const track = manager.tracks[0];
 
-    expect(track.position.X).toBe(expectedX);
-    expect(track.position.Y).toBe(expectedY);
+    expect(track.position.x).toBe(expectedX);
+    expect(track.position.y).toBe(expectedY);
   });
 });
 
