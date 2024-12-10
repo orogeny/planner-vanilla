@@ -11,11 +11,11 @@ class Vector {
     this._y = y;
   }
 
-  get X() {
+  get x() {
     return this._x;
   }
 
-  get Y() {
+  get y() {
     return this._y;
   }
 

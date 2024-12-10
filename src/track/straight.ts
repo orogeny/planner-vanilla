@@ -51,10 +51,10 @@ class Straight {
 
   encompasses(vector: Vector) {
     if (
-      vector.X < this.position.X ||
-      vector.Y < this.position.Y ||
-      vector.X > this.position.X + this.length ||
-      vector.Y > this.position.Y + this.width
+      vector.x < this.position.x ||
+      vector.y < this.position.y ||
+      vector.x > this.position.x + this.length ||
+      vector.y > this.position.y + this.width
     ) {
       return false;
     }
@@ -66,7 +66,7 @@ class Straight {
 
     ctx.fillStyle = this.swatch[this.fillColour];
     ctx.beginPath();
-    ctx.rect(this.position.X, this.position.Y, this.length, this.width);
+    ctx.rect(this.position.x, this.position.y, this.length, this.width);
     ctx.fill();
 
     ctx.fillStyle = this.swatch[this.textColour];
@@ -76,8 +76,8 @@ class Straight {
     ctx.beginPath();
     ctx.fillText(
       this.catno,
-      this.position.X + this.length / 2,
-      this.position.Y + this.width / 2,
+      this.position.x + this.length / 2,
+      this.position.y + this.width / 2,
       this.length,
     );
 
